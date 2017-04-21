@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export LC_ALL=C
+
 OPENBLAS=OpenBLAS-0.2.18.tar.gz
 OPENBLAS_DIR=OpenBLAS-0.2.18
 
