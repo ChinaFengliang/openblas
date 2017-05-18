@@ -5,11 +5,11 @@ cd benchmark
 
 export OPENBLAS_NUM_THREADS=1
 echo "1 threads"
-taskset -c 0 ./sgemm.goto 200 4000 200
+numactl -C 0 --localalloc ./sgemm.goto 200 4000 200
 
 export OPENBLAS_NUM_THREADS=10
 echo "10 threads"
-taskset -c 0-9 ./sgemm.goto 200 4000 200
+numactl -C 0-9 --localalloc ./sgemm.goto 200 4000 200
 
 export OPENBLAS_NUM_THREADS=24
 echo "1 socket"
