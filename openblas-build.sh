@@ -2,6 +2,8 @@
 
 export LC_ALL=C
 
+ARCH=`uname -m`
+
 OPENBLAS=OpenBLAS-0.2.18.tar.gz
 OPENBLAS_DIR=OpenBLAS-0.2.18
 
@@ -20,9 +22,17 @@ fi
 
 cd $OPENBLAS_DIR
 
-make clean
-make TARGET=ARMV8 BINARY=64
-cd benchmark
-make clean
-#make TARGET=ARMV8 BINARY=64
-make TARGET=ARMV8 BINARY=64 sgemm.goto
+if [ $ARCH -eq "aarch64" ]; then
+	make clean
+	make TARGET=ARMV8 BINARY=64
+	cd benchmark
+	make clean
+	#make TARGET=ARMV8 BINARY=64
+	make TARGET=ARMV8 BINARY=64 sgemm.goto
+else
+	make clean
+	make BINARY=64
+	cd benchmark
+	make clean
+	make BINARY=64 sgemm.goto
+fi
